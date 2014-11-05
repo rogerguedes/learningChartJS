@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <script src="Chart.js"></script>
+
+    <style type="text/css">
+
+    *{
+        margin: 0px;
+    }
+
+    .box-chart {
+        width: 98%;
+    }
+
+    </style>  
+
+    <script type="text/javascript">
+        var randomnb = function(){ return Math.round(Math.random()*30)};
+
+        var options = {
+            animation: false,
+            responsive:true,
+            maintainAspectRatio: true
+        };
+        var data = {
+            //labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+            labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+            //labels: ["", "", "", "", "", "", "", "", "", "", "", ""],
+            datasets: [
+                {
+                    label: "Dados primários",
+                    //fillColor: "rgba(220,220,220,0.5)",
+                    fillColor: "rgba(0,102,255,0.5)",
+                    strokeColor: "rgba(220,220,220,0.8)",
+                    //highlightFill: "rgba(220,220,220,0.75)",
+                    highlightFill: "rgba(0,51,255,0.75)",
+                    highlightStroke: "rgba(220,220,220,1)",
+                    data: [randomnb(), randomnb(), randomnb(), randomnb(), randomnb(), randomnb(), randomnb(), randomnb(), randomnb(), randomnb(), randomnb(), randomnb()]
+                }
+            ]
+        };                
+
+        window.onload = function(){
+            var ctx = document.getElementById("GraficoBarra").getContext("2d");
+            ctx.canvas.height = 100;
+            var BarChart = new Chart(ctx).Bar(data, options);
+            var updButton = document.getElementById("updateButton");
+            var chartInterval = null;
+            updButton.onclick = function(){
+                if(!chartInterval){
+                    chartInterval = setInterval(function(){
+                        BarChart.removeData();
+                        BarChart.addData([randomnb()], "New");
+                        BarChart.update();
+                    },1000);
+                    updButton.innerHTML = "Stop Update";
+                }
+                else{
+                    clearInterval(chartInterval);
+                    chartInterval = null;
+                    updButton.innerHTML = "Start Update";
+                }
+            }
+        }           
+    </script>
+</head>
+    <body>    
+        <div class="box-chart">
+            <canvas id="GraficoBarra" ></canvas>
+        </div>
+        <button id="updateButton">Start Update</button>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel magna erat. Pellentesque at massa ut felis fermentum volutpat. Aenean viverra dolor ac risus ultrices, eu varius massa gravida. Maecenas imperdiet luctus nisl, in semper lacus vulputate in. Nullam quis convallis felis. Nunc convallis lectus sit amet lorem elementum, eu rhoncus lectus molestie. Sed maximus augue vitae mauris blandit sagittis quis bibendum magna. Integer fermentum quam nunc, id tempus est laoreet vel. Mauris feugiat posuere ligula, a condimentum dolor dapibus a. Nunc vel malesuada risus. Duis efficitur sodales molestie.</p>
+        <p>Fusce condimentum lacinia felis nec convallis. Donec efficitur mauris elit, quis tincidunt libero gravida ac. Morbi mi ipsum, sollicitudin nec arcu sit amet, tincidunt vulputate tortor. Donec sed nisl nibh. Nunc sapien nunc, ultricies eu aliquet sit amet, sollicitudin vitae nunc. Mauris tincidunt aliquet tellus, et rutrum diam. Mauris interdum magna nec lacus dapibus, sit amet malesuada mi dictum. Curabitur eget nibh id lectus malesuada vehicula sit amet et est. Integer aliquam nisl eu eros pulvinar ultricies. Nullam magna mauris, sollicitudin nec efficitur et, convallis vel metus. Suspendisse leo nulla, luctus et consequat ac, sodales a dolor.</p>
+        <p>Sed eleifend tortor id interdum condimentum. Curabitur vel efficitur felis. Donec lacus lacus, efficitur vel lacinia nec, consectetur a arcu. Vestibulum vel vestibulum justo. Sed nec magna vel nunc ornare molestie. Maecenas posuere sapien erat, sed lobortis nisl egestas in. Suspendisse a sapien tincidunt, tempor augue quis, facilisis massa. Proin suscipit elementum viverra.</p>
+        <p>Etiam tempus nulla ut lorem lacinia dictum. Etiam semper consequat porta. Phasellus rhoncus leo augue, et sodales massa efficitur at. Fusce at posuere erat. Morbi quis pharetra leo. Nulla pulvinar pulvinar odio, eu efficitur dolor mollis sit amet. Nunc pretium fringilla metus, ut viverra massa commodo in. Etiam eu facilisis odio. Pellentesque eget molestie risus.</p>
+        <p>Integer vehicula risus quis arcu posuere gravida. Etiam accumsan vel mauris id vehicula. Nullam at ipsum arcu. Maecenas ornare ut dolor nec egestas. Vivamus mollis dolor leo, in euismod nulla venenatis quis. In at commodo est. Integer ullamcorper risus vitae turpis egestas iaculis. Etiam vehicula pharetra accumsan. Duis sed nunc lorem. Proin accumsan varius enim, nec consequat felis faucibus venenatis. Quisque volutpat sem at ligula facilisis, at fringilla ex mollis.</p>
+    </body>
+</html>
